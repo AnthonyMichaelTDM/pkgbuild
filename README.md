@@ -1,2 +1,2 @@
-# pkgbuild
+# PKGBUILDS
 my pkgbuild files
