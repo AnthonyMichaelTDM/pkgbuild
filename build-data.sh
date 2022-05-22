@@ -1,14 +1,14 @@
 #!/bin/bash
 #https://wiki.archlinux.org/index.php/DeveloperWiki:Building_in_a_Clean_Chroot
 
-destination1=$HOME"/DATA/genesis_repo/x86_64/"
+destination1=$HOME"/Data/genesis-repo/x86_64/"
 
 destiny=$destination1
 
 # 2. makepkg"
 # 1. chroot"
 
-CHOICE=1
+CHOICE=2
 pwdpath=$(echo $PWD)
 pwd=$(basename "$PWD")
 
