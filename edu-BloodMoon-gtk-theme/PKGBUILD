@@ -1,0 +1,24 @@
+# Maintainer: Anthony Rubick <AnthonyMichaelTDM@github.com>
+pkgname=edu-BloodMoon-gtk-theme-git
+_pkgname=edu-BloodMoon-gtk-theme
+pkgver=22.05
+pkgrel=01
+_destname1="/usr/share/themes"
+pkgdesc="gtk theme with black and red aesthetics"
+arch=('any')
+url="https://github.com/AnthonyMichaelTDM/${_pkgname}.git"
+license=('GPL3')
+depends=()
+makedepends=('git')
+replaces=()
+provides=("${pkgname}")
+conflicts=()
+options=(!strip !emptydirs)
+source=(${_pkgname}::"git+${url}")
+sha256sums=('SKIP')
+package() {
+    install -dm 755 ${pkgdir}${_destname1}
+    rm ${srcdir}/${_pkgname}/git*
+    rm ${srcdir}/${_pkgname}/setup*
+    cp -r ${srcdir}/${_pkgname}/BloodMoon/ ${pkgdir}${_destname1}
+}
