@@ -1,8 +1,8 @@
 # Maintainer: Anthony Rubick <AnthonyMichaelTDM@github.com>
 pkgname=edu-sddm-BloodMoon-sugar-candy-git
 _pkgname=edu-sddm-BloodMoon-sugar-candy
-pkgver=22.05
-pkgrel=01
+pkgver=VERSION
+pkgrel=1
 _destname1="/usr/share/sddm/themes"
 pkgdesc="Sugar Candy SDDM theme modified with different colors and background images"
 arch=('any')
@@ -21,4 +21,8 @@ package() {
     rm ${srcdir}/${_pkgname}/git*
     rm ${srcdir}/${_pkgname}/setup*
     cp -r ${srcdir}/${_pkgname}/BloodMoon-sugar-candy/ ${pkgdir}${_destname1}
+}
+pkgver() {
+    cd "$_pkgname"
+    printf "%s.r%s" "$(date +%y.%m)" "$(git rev-list --count HEAD)"
 }

@@ -1,14 +1,14 @@
 # Maintainer: Anthony Rubick <AnthonyMichaelTDM@github.com>
-pkgname=edu-BloodMoon-gtk-theme-git
-_pkgname=edu-BloodMoon-gtk-theme
+pkgname=edu-vimrc-git
+_pkgname=edu-vimrc
 pkgver=VERSION
 pkgrel=1
-_destname1="/usr/share/themes"
-pkgdesc="gtk theme with black and red aesthetics"
+_destname1="/etc"
+pkgdesc="vim configs"
 arch=('any')
 url="https://github.com/AnthonyMichaelTDM/${_pkgname}.git"
 license=('GPL3')
-depends=()
+depends=('vim')
 makedepends=('git')
 replaces=()
 provides=("${pkgname}")
@@ -17,10 +17,9 @@ options=(!strip !emptydirs)
 source=(${_pkgname}::"git+${url}")
 sha256sums=('SKIP')
 package() {
-    install -dm 755 ${pkgdir}${_destname1}
     rm ${srcdir}/${_pkgname}/git*
     rm ${srcdir}/${_pkgname}/setup*
-    cp -r ${srcdir}/${_pkgname}/BloodMoon/ ${pkgdir}${_destname1}
+    cp ${srcdir}/${_pkgname}/vimrc ${pkgdir}${_destname1}
 }
 pkgver() {
     cd "$_pkgname"
