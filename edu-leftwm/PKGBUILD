@@ -6,6 +6,8 @@ pkgrel=1
 _srcname1="/leftwm/"
 _destname1="/etc/skel/.config/"
 _licensedir="/usr/share/arcolinux/licenses/"
+_themeurl="https://github.com/AnthonyMichaelTDM/master-pywal-theme.git"
+_themedest="/leftwm/themes/master-pywal-theme/"
 pkgdesc="Leftwm Desktop configuration for ArcoLinux -D -B"
 arch=('any')
 url="https://github.com/AnthonyMichaelTDM/${_pkgname}.git"
@@ -20,6 +22,8 @@ source=(${_pkgname}::"git+${url}")
 sha256sums=('SKIP')
 install='readme.install'
 package() {
+    git clone ${_themeurl} ${srcdir}/${_pkgname}${_themedest}
+    
     install -dm755 ${pkgdir}${_licensedir}${_pkgname}
 	install -m644  ${srcdir}/${_pkgname}/LICENSE ${pkgdir}${_licensedir}${_pkgname}
 
