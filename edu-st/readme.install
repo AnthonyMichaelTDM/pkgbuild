@@ -4,7 +4,7 @@ post_install() {
     make -s
     make -s install
     echo
-    echo -e "\n** The files have been installed in /etc/skel/.config/leftwm **\n"
+    echo -e "\n** The files have been installed in /etc/skel/.config/edu-st **\n"
 }
 
 post_upgrade() {
