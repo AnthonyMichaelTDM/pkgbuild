@@ -4,4 +4,5 @@ post_install() {
 
 post_upgrade() {
     post_install
+    leftwm-theme apply "master-pywal-theme"
 }
