@@ -22,11 +22,16 @@ source=(${_pkgname}::"git+${url}")
 sha256sums=('SKIP')
 install='readme.install'
 package() {
+    # copy the theme into the themes folder
     git clone ${_themeurl} ${srcdir}/${_pkgname}${_themedest}
-    
+    # remove the .git folder bc it's massive
+    rm -rf ${srcdir}/${_pkgname}${_themedest}.git
+
+    # install the license
     install -dm755 ${pkgdir}${_licensedir}${_pkgname}
 	install -m644  ${srcdir}/${_pkgname}/LICENSE ${pkgdir}${_licensedir}${_pkgname}
 
+    #install the software
 	install -dm755 ${pkgdir}${_destname1}
 	cp -r  ${srcdir}/${_pkgname}${_srcname1} ${pkgdir}${_destname1}
 }
