@@ -4,6 +4,7 @@ post_install() {
 
 post_upgrade() {
     post_install
+    leftwm-theme uninstall "master-pywal-theme"
     leftwm-theme install "master-pywal-theme"
     leftwm-theme apply "master-pywal-theme"
 }
