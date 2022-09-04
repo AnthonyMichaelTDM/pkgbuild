@@ -1,0 +1,41 @@
+# Maintainer: Anthony Rubick <ruby.rubick@gmail.com>
+pkgname=edu-leftwm-git
+_pkgname=edu-leftwm
+pkgver=VERSION
+pkgrel=1
+_srcname1="/leftwm/"
+_destname1="/etc/skel/.config/"
+_licensedir="/usr/share/arcolinux/licenses/"
+_themeurl="https://github.com/AnthonyMichaelTDM/master-pywal-theme.git"
+_themedest="/leftwm/themes/master-pywal-theme/"
+pkgdesc="Leftwm Desktop configuration for ArcoLinux -D -B"
+arch=('any')
+url="https://github.com/AnthonyMichaelTDM/${_pkgname}.git"
+license=('GPL3')
+depends=('bash' 'leftwm' 'python-pywal' 'picom' 'polybar' 'leftwm-theme')
+makedepends=('git')
+replaces=()
+provides=("${pkgname}")
+conflicts=('arcolinux-leftwm-git')
+options=(!strip !emptydirs)
+source=(${_pkgname}::"git+${url}")
+sha256sums=('SKIP')
+install='readme.install'
+package() {
+    # copy the theme into the themes folder
+    #git clone ${_themeurl} ${srcdir}/${_pkgname}${_themedest}
+    # remove the .git folder bc it's massive 
+    #rm -rf ${srcdir}/${_pkgname}${_themedest}.git
+
+    # install the license
+    install -dm755 ${pkgdir}${_licensedir}${_pkgname}
+	install -m644  ${srcdir}/${_pkgname}/LICENSE ${pkgdir}${_licensedir}${_pkgname}
+
+    #install the software
+	install -dm755 ${pkgdir}${_destname1}
+	cp -r  ${srcdir}/${_pkgname}${_srcname1} ${pkgdir}${_destname1}
+}
+pkgver() {
+    cd "$_pkgname"
+    printf "%s.r%s" "$(date +%y.%m)" "$(git rev-list --count HEAD)"
+}

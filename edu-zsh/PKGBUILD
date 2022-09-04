@@ -1,0 +1,34 @@
+# Maintainer: Anthony Rubick <ruby.rubick@gmail.com>
+pkgname=edu-zsh-git
+_pkgname=edu-zsh
+pkgver=VERSION
+pkgrel=1
+_srcname1="/etc/skel/.zshrc"
+_destname1="/etc/skel/"
+_licensedir="/usr/share/arcolinux/licenses/"
+pkgdesc="zsh configs"
+arch=('any')
+url="https://github.com/AnthonyMichaelTDM/${_pkgname}.git"
+license=('GPL3')
+depends=('zsh' 'most')
+makedepends=('git')
+replaces=()
+provides=("${pkgname}")
+conflicts=('arcolinux-zsh-git')
+options=(!strip !emptydirs)
+source=(${_pkgname}::"git+${url}")
+sha256sums=('SKIP')
+install='readme.install'
+package() {
+    # install the license
+    install -dm755 ${pkgdir}${_licensedir}${_pkgname}
+    install -m644  ${srcdir}/${_pkgname}/LICENSE ${pkgdir}${_licensedir}${_pkgname}
+
+    #install the software
+    install -dm755 ${pkgdir}${_destname1}
+    cp -r  ${srcdir}/${_pkgname}${_srcname1} ${pkgdir}${_destname1}
+}
+pkgver() {
+    cd "$_pkgname"
+    printf "%s.r%s" "$(date +%y.%m)" "$(git rev-list --count HEAD)"
+}

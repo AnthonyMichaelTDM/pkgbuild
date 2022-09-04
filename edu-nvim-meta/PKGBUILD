@@ -1,0 +1,43 @@
+# Maintainer: Anthony Rubick <ruby.rubick@gmail.com>
+pkgname=edu-nvim-meta
+pkgver=VERSION
+pkgrel=2
+_licensedir="/usr/share/arcolinux/licenses/"
+_astronvimurl="https://github.com/AstroNvim/AstroNvim.git"
+_initluasource="https://github.com/AnthonyMichaelTDM/astronvim-config.git"
+_initluasrc="initlua"
+_initluadest="/etc/skel/astronvim/user"
+_destname="/usr/share/astronvim"
+pkgdesc="Collection of packages for neovim, neovim+neovide+astronvim"
+arch=('any')
+url="https://github.com/neovim/neovim"
+license=('GPL3')
+depends=('neovim>=0.7.0' 'xclip' 'lazygit' 'neovide')
+makedepends=()
+replaces=()
+provides=("${pkgname}")
+conflicts=()
+options=()
+source=(${pkgname}::"git+${_astronvimurl}" "${_initluasrc}::git+${_initluasource}" "astronvim.vim.template")
+sha256sums=('SKIP' 'SKIP' '0bb6cb6c0dce255d9b12f31db6c39c991b3b12ba2f0416466d4a7d4222ecde9f')
+install='readme.install'
+package() {
+	cd "${srcdir}"
+	echo -e "lua _G.astronvim_installation={home='${install_dir}', version='${pkgver}', is_stable=false}\n$(cat astronvim.vim.template)" >astronvim.vim
+	install -Dm 644 "astronvim.vim" "${pkgdir}/usr/share/nvim/runtime/plugin/astronvim.vim"
+	
+	#install init.lua
+	install -Dm 755 "${_initluasrc}/init.lua" "${pkgdir}${_initluadest}"
+
+	#install license
+	cd "${pkgname}"
+	install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+	
+	#install (AstroNvim) sources
+	mkdir -p "${pkgdir}${_destname}"	
+	cp -r {colors,init.lua,lua,packer_snapshot} "${pkgdir}${_destname}"
+}
+pkgver() {
+    cd "$pkgname"
+    printf "%s.r%s" "$(date +%y.%m)" "$(git rev-list --count HEAD)"
+}
