@@ -6,7 +6,7 @@ _licensedir="/usr/share/arcolinux/licenses/"
 _astronvimurl="https://github.com/AstroNvim/AstroNvim.git"
 _initluasource="https://github.com/AnthonyMichaelTDM/astronvim-config.git"
 _initluasrc="initlua"
-_initluadest="/etc/skel/astronvim/user"
+_initluadest="/etc/skel/astronvim/user/"
 _destname="/usr/share/astronvim"
 pkgdesc="Collection of packages for neovim, neovim+neovide+astronvim"
 arch=('any')
@@ -27,7 +27,7 @@ package() {
 	install -Dm 644 "astronvim.vim" "${pkgdir}/usr/share/nvim/runtime/plugin/astronvim.vim"
 	
 	#install init.lua
-	install -Dm 755 "${_initluasrc}/init.lua" "${pkgdir}${_initluadest}"
+	install -Dm 755 "${_initluasrc}/init.lua" "${pkgdir}${_initluadest}init.lua"
 
 	#install license
 	cd "${pkgname}"
