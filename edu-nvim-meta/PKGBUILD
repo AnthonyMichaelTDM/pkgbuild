@@ -27,7 +27,7 @@ package() {
 	install -Dm 644 "astronvim.vim" "${pkgdir}/usr/share/nvim/runtime/plugin/astronvim.vim"
 	
 	#install init.lua
-	install -Dm 755 "${_initluasrc}/init.lua" "${pkgdir}${_initluadest}init.lua"
+	install -Dm 644 "${_initluasrc}/init.lua" "${pkgdir}${_initluadest}init.lua"
 
 	#install license
 	cd "${pkgname}"
