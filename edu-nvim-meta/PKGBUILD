@@ -30,11 +30,11 @@ package() {
 	install -Dm 644 LICENSE "${pkgdir}${_licensedir}${pkgname}/${AstroNvim}/LICENSE"
 	
 	#install (AstroNvim) sources
-	mkdir -p "${pkgdir}${_destname}"
+	mkdir -p "${pkgdir}${_install_dest}"
 	cp -r {colors,init.lua,lua,packer_snapshot} "${pkgdir}${_install_dest}"
 
 	#install (AstroNvim) user config
-	mkdir -p "${pkgdir}${_destname1}"
+	mkdir -p "${pkgdir}${_config_dest}"
 	cp "${srcdir}/init.lua" "${pkgdir}${_config_dest}"
 }
 pkgver() {
