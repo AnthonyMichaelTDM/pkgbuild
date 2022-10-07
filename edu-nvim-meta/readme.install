@@ -3,7 +3,5 @@ post_install() {
 }
 
 post_upgrade() {
-    echo -e "\n** The files have been installed in /etc/skel/.config/leftwm **\n"
-    leftwm-theme upgrade
-    #leftwm-theme apply "master-pywal-theme"
+    echo -e "\n** The files have been installed in /etc/skel/.config/astronvim **\n"
 }
