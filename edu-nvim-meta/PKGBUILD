@@ -4,7 +4,8 @@ pkgver=VERSION
 pkgrel=1
 _licensedir="/usr/share/arcolinux/licenses/"
 _astronvimurl="https://github.com/AnthonyMichaelTDM/AstroNvim.git"
-_destname="/usr/share/astronvim"
+_install_dest="/usr/share/astronvim/"
+_config_dest="/etc/skel/.config/astronvim/lua/user/"
 pkgdesc="Collection of packages for neovim, neovim+neovide+astronvim"
 arch=('any')
 url="https://github.com/neovim/neovim"
@@ -15,20 +16,26 @@ replaces=()
 provides=("${pkgname}")
 conflicts=()
 options=()
-source=(${pkgname}::"git+${_astronvimurl}" "astronvim.vim.template")
+source=(${pkgname}::"git+${_astronvimurl}" "astronvim.vim.template" "init.lua")
 sha256sums=('SKIP' '0bb6cb6c0dce255d9b12f31db6c39c991b3b12ba2f0416466d4a7d4222ecde9f')
+install='readme.install'
 package() {
+	#set up astronvim configuration
 	cd "${srcdir}"
 	echo -e "lua _G.astronvim_installation={home='${install_dir}', version='${pkgver}', is_stable=false}\n$(cat astronvim.vim.template)" >astronvim.vim
 	install -Dm 644 "astronvim.vim" "${pkgdir}/usr/share/nvim/runtime/plugin/astronvim.vim"
 
 	#install license
 	cd "${pkgname}"
-	install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+	install -Dm 644 LICENSE "${pkgdir}${_licensedir}${pkgname}/${AstroNvim}/LICENSE"
 	
 	#install (AstroNvim) sources
-	mkdir -p "${pkgdir}${_destname}"	
-	cp -r {colors,init.lua,lua,packer_snapshot} "${pkgdir}${_destname}"
+	mkdir -p "${pkgdir}${_destname}"
+	cp -r {colors,init.lua,lua,packer_snapshot} "${pkgdir}${_install_dest}"
+
+	#install (AstroNvim) user config
+	mkdir -p "${pkgdir}${_destname1}"
+	cp "${srcdir}/init.lua" "${pkgdir}${_config_dest}"
 }
 pkgver() {
     cd "$pkgname"
