@@ -17,7 +17,9 @@ provides=("${pkgname}")
 conflicts=()
 options=()
 source=(${pkgname}::"git+${_astronvimurl}" "astronvim.vim.template" "init.lua")
-sha256sums=('SKIP' '0bb6cb6c0dce255d9b12f31db6c39c991b3b12ba2f0416466d4a7d4222ecde9f' 'SKIP')
+sha256sums=('SKIP'
+            '0bb6cb6c0dce255d9b12f31db6c39c991b3b12ba2f0416466d4a7d4222ecde9f'
+            'a9f3c8400e6e0d7bb9abe360094a5c748200224641393b8f75664ec4bb14c02d')
 install='readme.install'
 package() {
 	#set up astronvim configuration
