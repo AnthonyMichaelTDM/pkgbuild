@@ -18,26 +18,27 @@ conflicts=()
 options=()
 source=(${pkgname}::"git+${_astronvimurl}" "astronvim.vim.template" "init.lua")
 sha256sums=('SKIP'
-            '0bb6cb6c0dce255d9b12f31db6c39c991b3b12ba2f0416466d4a7d4222ecde9f'
+            'a11c032b23e3892e9022aa32264cec022eddd25d39c874c36e70ed345ad05218'
             'a9f3c8400e6e0d7bb9abe360094a5c748200224641393b8f75664ec4bb14c02d')
 install='readme.install'
 package() {
 	#set up astronvim configuration
-	cd "${srcdir}"
-	echo -e "lua _G.astronvim_installation={home='${install_dir}', version='${pkgver}', is_stable=false}\n$(cat astronvim.vim.template)" >astronvim.vim
+
+	cd "$srcdir"
+	echo -e "lua _G.astronvim_installation={home='${_install_dest}', version='${pkgver}', is_stable=true}\n$(cat astronvim.vim.template)" >astronvim.vim
 	install -Dm 644 "astronvim.vim" "${pkgdir}/usr/share/nvim/runtime/plugin/astronvim.vim"
 
 	#install license
 	cd "${pkgname}"
-	install -Dm 644 LICENSE "${pkgdir}${_licensedir}${pkgname}/${AstroNvim}/LICENSE"
-	
+	install -Dm 644 LICENSE "${pkgdir}${_licensedir}${pkgname}/AstroNvim/LICENSE"
+
 	#install (AstroNvim) sources
 	mkdir -p "${pkgdir}${_install_dest}"
-	cp -r {colors,init.lua,lua,packer_snapshot} "${pkgdir}${_install_dest}"
+	cp -r {init.lua,lua} "${pkgdir}${_install_dest}"
 
 	#install (AstroNvim) user config
-	mkdir -p "${pkgdir}${_config_dest}"
-	cp "${srcdir}/init.lua" "${pkgdir}${_config_dest}"
+	#mkdir -p "${pkgdir}${_config_dest}"
+	#cp "${srcdir}/init.lua" "${pkgdir}${_config_dest}"
 }
 pkgver() {
     cd "$pkgname"
