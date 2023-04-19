@@ -26,7 +26,7 @@ local config = {
   },
 
   -- Set colorscheme to use
-  colorscheme = "default_theme",
+  -- colorscheme = "default_theme",
 
   -- Override highlight groups in any theme
   highlights = {
@@ -181,7 +181,7 @@ local config = {
 
   -- Configure plugins
   plugins = {
-    init = {
+    -- init = {
       -- You can disable default plugins as follows:
       -- ["goolord/alpha-nvim"] = { disable = true },
 
@@ -203,20 +203,20 @@ local config = {
       --     require("lsp_signature").setup()
       --   end,
       -- },
-    },
+    -- },
     -- All other entries override the require("<key>").setup({...}) call for default plugins
-    ["null-ls"] = function(config) -- overrides `require("null-ls").setup(config)`
+    -- ["null-ls"] = function(config) -- overrides `require("null-ls").setup(config)`
       -- config variable is the default configuration table for the setup functino call
       -- local null_ls = require "null-ls"
 
       -- Check supported formatters and linters
       -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
       -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
-      config.sources = {
+      -- config.sources = {
         -- Set a formatter
         -- null_ls.builtins.formatting.stylua,
         -- null_ls.builtins.formatting.prettier,
-      }
+      -- }
       -- set up null-ls's on_attach function
       -- NOTE: You can uncomment this on attach function to enable format on save
       -- config.on_attach = function(client)
@@ -228,22 +228,22 @@ local config = {
       --     })
       --   end
       -- end
-      return config -- return final config table to use in require("null-ls").setup(config)
-    end,
-    treesitter = { -- overrides `require("treesitter").setup(...)`
+      -- return config -- return final config table to use in require("null-ls").setup(config)
+    -- end,
+    -- treesitter = { -- overrides `require("treesitter").setup(...)`
       -- ensure_installed = { "lua" },
-    },
+    -- },
     -- use mason-lspconfig to configure LSP installations
-    ["mason-lspconfig"] = { -- overrides `require("mason-lspconfig").setup(...)`
+    -- ["mason-lspconfig"] = { -- overrides `require("mason-lspconfig").setup(...)`
       -- ensure_installed = { "sumneko_lua" },
-    },
+    -- },
     -- use mason-tool-installer to configure DAP/Formatters/Linter installation
-    ["mason-tool-installer"] = { -- overrides `require("mason-tool-installer").setup(...)`
+    -- ["mason-tool-installer"] = { -- overrides `require("mason-tool-installer").setup(...)`
       -- ensure_installed = { "prettier", "stylua" },
-    },
-    packer = { -- overrides `require("packer").setup(...)`
-      compile_path = vim.fn.stdpath "data" .. "/packer_compiled.lua",
-    },
+    -- },
+    -- packer = { -- overrides `require("packer").setup(...)`
+    --  compile_path = vim.fn.stdpath "data" .. "/packer_compiled.lua",
+    -- },
   },
 
   -- LuaSnip Options

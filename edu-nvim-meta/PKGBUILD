@@ -1,5 +1,6 @@
 # Maintainer: Anthony Rubick <ruby.rubick@gmail.com>
 pkgname=edu-nvim-meta
+_astronvim_ver="3.10.3"
 pkgver=VERSION
 pkgrel=1
 _licensedir="/usr/share/arcolinux/licenses/"
@@ -10,7 +11,7 @@ pkgdesc="Collection of packages for neovim, neovim+neovide+astronvim"
 arch=('any')
 url="https://github.com/neovim/neovim"
 license=('GPL3')
-depends=('neovim>=0.7.0' 'xclip' 'lazygit' 'neovide')
+depends=('neovim>=0.8.0' 'xclip' 'lazygit' 'neovide')
 makedepends=()
 replaces=()
 provides=("${pkgname}")
@@ -19,13 +20,13 @@ options=()
 source=(${pkgname}::"git+${_astronvimurl}" "astronvim.vim.template" "init.lua")
 sha256sums=('SKIP'
             'a11c032b23e3892e9022aa32264cec022eddd25d39c874c36e70ed345ad05218'
-            'a9f3c8400e6e0d7bb9abe360094a5c748200224641393b8f75664ec4bb14c02d')
+            '04a49fc48be3a66a83311a9516afe6266807927461dec11d376608830d1310b3')
 install='readme.install'
 package() {
 	#set up astronvim configuration
 
 	cd "$srcdir"
-	echo -e "lua _G.astronvim_installation={home='${_install_dest}', version='${pkgver}', is_stable=true}\n$(cat astronvim.vim.template)" >astronvim.vim
+	echo -e "lua _G.astronvim_installation={home='${_install_dest}', version='${_astronvim_ver}', is_stable=true}\n$(cat astronvim.vim.template)" > astronvim.vim
 	install -Dm 644 "astronvim.vim" "${pkgdir}/usr/share/nvim/runtime/plugin/astronvim.vim"
 
 	#install license
@@ -37,8 +38,8 @@ package() {
 	cp -r {init.lua,lua} "${pkgdir}${_install_dest}"
 
 	#install (AstroNvim) user config
-	#mkdir -p "${pkgdir}${_config_dest}"
-	#cp "${srcdir}/init.lua" "${pkgdir}${_config_dest}"
+	mkdir -p "${pkgdir}${_config_dest}"
+	cp "${srcdir}/init.lua" "${pkgdir}${_config_dest}"
 }
 pkgver() {
     cd "$pkgname"
