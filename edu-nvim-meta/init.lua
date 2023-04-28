@@ -5,49 +5,70 @@
 -- normal format is "key = value". These also handle array like data structures
 -- where a value with no key simply has an implicit numeric key
 local config = {
-
   -- Configure AstroNvim updates
   updater = {
-    remote = "origin", -- remote to use
-    channel = "nightly", -- "stable" or "nightly"
-    version = "latest", -- "latest", tag name, or regex search like "v1.*" to only do updates before v2 (STABLE ONLY)
-    branch = "main", -- branch name (NIGHTLY ONLY)
-    commit = nil, -- commit hash (NIGHTLY ONLY)
-    pin_plugins = nil, -- nil, true, false (nil will pin plugins on stable only)
-    skip_prompts = false, -- skip prompts about breaking changes
+    remote = "origin",     -- remote to use
+    channel = "nightly",   -- "stable" or "nightly"
+    version = "latest",    -- "latest", tag name, or regex search like "v1.*" to only do updates before v2 (STABLE ONLY)
+    branch = "main",       -- branch name (NIGHTLY ONLY)
+    commit = nil,          -- commit hash (NIGHTLY ONLY)
+    pin_plugins = nil,     -- nil, true, false (nil will pin plugins on stable only)
+    skip_prompts = false,  -- skip prompts about breaking changes
     show_changelog = true, -- show the changelog after performing an update
-    auto_reload = false, -- automatically reload and sync packer after a successful update
-    auto_quit = false, -- automatically quit the current session after a successful update
-    -- remotes = { -- easily add new remotes to track
-    --   ["remote_name"] = "https://remote_url.come/repo.git", -- full remote url
-    --   ["remote2"] = "github_user/repo", -- GitHub user/repo shortcut,
-    --   ["remote3"] = "github_user", -- GitHub user assume AstroNvim fork
-    -- },
+    auto_reload = false,   -- automatically reload and sync packer after a successful update
+    auto_quit = false,     -- automatically quit the current session after a successful update
+    remotes = {
+      -- easily add new remotes to track
+      --   ["remote_name"] = "https://remote_url.come/repo.git", -- full remote url
+      ["My AstroNvim Fork"] = "AnthonyMichaelTDM/AstroNvim", -- GitHub user/repo shortcut,
+      --   ["remote3"] = "github_user", -- GitHub user assume AstroNvim fork
+    },
   },
-
-  -- Set colorscheme to use
-  -- colorscheme = "default_theme",
-
+  -- Diagnostics configuration (for vim.diagnostics.config({...}))
+  diagnostics = {
+    virtual_text = true,
+    underline = true,
+  },
   -- Override highlight groups in any theme
   highlights = {
     -- duskfox = { -- a table of overrides/changes to the default
     --   Normal = { bg = "#000000" },
     -- },
-    default_theme = function(highlights) -- or a function that returns a new table of colors to set
-      local C = require "default_theme.colors"
+    -- default_theme = function(highlights) -- or a function that returns a new table of colors to set
+    -- local C = require "default_theme.colors"
 
-      highlights.Normal = { fg = C.fg, bg = C.bg }
-      return highlights
-    end,
+    -- highlights.Normal = { fg = C.fg, bg = C.bg }
+    -- return highlights
+    -- end,
   },
-
+  -- Configure require("lazy").setup() options
+  lazy = {
+    defaults = { lazy = true },
+    performance = {
+      rtp = {
+        -- customize default disabled vim plugins
+        -- disabled_plugins = { "tohtml", "gzip", "matchit", "zipPlugin", "netrwPlugin", "tarPlugin" },
+      },
+    },
+  },
   -- set vim options here (vim.<first_key>.<second_key> =  value)
   options = {
     opt = {
+      -- set to true or false etc.
       relativenumber = true, -- sets vim.opt.relativenumber
+      number = true,         -- sets vim.opt.number
+      spell = false,         -- sets vim.opt.spell
+      signcolumn = "auto",   -- sets vim.opt.signcolumn to auto
+      wrap = false,          -- sets vim.opt.wrap
     },
     g = {
-      mapleader = " ", -- sets vim.g.mapleader
+      mapleader = " ",                 -- sets vim.g.mapleader
+      autoformat_enabled = true,       -- enable or disable auto formatting at start (lsp.formatting.format_on_save must be enabled)
+      cmp_enabled = true,              -- enable completion at start
+      autopairs_enabled = true,        -- enable autopairs at start
+      diagnostics_mode = 3,            -- set the visibility of diagnostics in the UI (0=off, 1=only show in status line, 2=virtual text off, 3=all on)
+      icons_enabled = true,            -- disable icons in the UI (disable if no nerd font is available, requires :PackerSync after changing)
+      ui_notifications_enabled = true, -- disable notifications when toggling UI elements
     },
   },
   -- If you need more control, you can use the function()...end notation
@@ -74,44 +95,6 @@ local config = {
     "    ██  ██ ██  ██  ██  ██ ██  ██  ██",
     "    ██   ████   ████   ██ ██      ██",
   },
-
-  -- Default theme configuration
-  default_theme = {
-    -- set the highlight style for diagnostic messages
-    diagnostics_style = { italic = true },
-    -- Modify the color palette for the default theme
-    colors = {
-      fg = "#abb2bf",
-      bg = "#1e222a",
-    },
-    -- enable or disable highlighting for extra plugins
-    plugins = {
-      aerial = true,
-      beacon = false,
-      bufferline = true,
-      dashboard = true,
-      highlighturl = true,
-      hop = false,
-      indent_blankline = true,
-      lightspeed = false,
-      ["neo-tree"] = true,
-      notify = true,
-      ["nvim-tree"] = false,
-      ["nvim-web-devicons"] = true,
-      rainbow = true,
-      symbols_outline = false,
-      telescope = true,
-      vimwiki = false,
-      ["which-key"] = true,
-    },
-  },
-
-  -- Diagnostics configuration (for vim.diagnostics.config({...}))
-  diagnostics = {
-    virtual_text = true,
-    underline = true,
-  },
-
   -- Extend LSP configuration
   lsp = {
     -- enable servers that you already have installed without mason
@@ -123,6 +106,10 @@ local config = {
       n = {
         -- ["<leader>lf"] = false -- disable formatting keymap
       },
+    },
+    setup_handlers = {
+      -- add custom handler
+      rust_analyzer = function(_, opts) require("rust-tools").setup { server = opts } end
     },
     -- add to the global LSP on_attach function
     -- on_attach = function(client, bufnr)
@@ -155,7 +142,6 @@ local config = {
       -- }
     },
   },
-
   -- Mapping data with "desc" stored directly by vim.keymap.set().
   --
   -- Please use this mappings table to set keyboard mapping since this is the
@@ -167,7 +153,15 @@ local config = {
       -- second key is the lefthand side of the map
       -- mappings seen under group name "Buffer"
       ["<leader>bb"] = { "<cmd>tabnew<cr>", desc = "New tab" },
-      ["<leader>bc"] = { "<cmd>BufferLinePickClose<cr>", desc = "Pick to close" },
+      ["<leader>bc"] = {
+        function()
+          require("astronvim.utils.status").heirline.buffer_picker(function(bufnr)
+            require("astronvim.utils.buffer")
+                .close(bufnr)
+          end)
+        end,
+        desc = "Pick to close",
+      },
       ["<leader>bj"] = { "<cmd>BufferLinePick<cr>", desc = "Pick to jump" },
       ["<leader>bt"] = { "<cmd>BufferLineSortByTabs<cr>", desc = "Sort by tabs" },
       -- quick save
@@ -178,74 +172,66 @@ local config = {
       -- ["<esc>"] = false,
     },
   },
-
   -- Configure plugins
   plugins = {
-    -- init = {
-      -- You can disable default plugins as follows:
-      -- ["goolord/alpha-nvim"] = { disable = true },
+    {
+      "williamboman/mason-lspconfig.nvim",
+      opts = {
+        ensure_installed = { "rust_analyzer" },
+      },
+    },
+    {
+      "rust-lang/rust.vim",
+      ft = "rust",
+      init = function()
+        vim.g.rustfmt_autosave = 1
+      end,
+    },
+    {
+      "simrat39/rust-tools.nvim", -- add lsp plugin
+      -- event = "BufEnter *.rs",
+      after = { "mason-lspconfig.nvim" },
+      dependencies = "neovim/nvim-lspconfig",
+      ft = "rust",
+      opts = {
+        tools = {
+          -- options same as lsp hover / vim.lsp.util.open_floating_preview()
+          hover_actions = {
+            -- whether the hover action window gets automatically focused
+            -- default: false
+            auto_focus = true,
+          },
+        },
+      },
+      config = function(_, opts)
+        require("rust-tools").setup(opts)
+        -- Hover actions
+        vim.keymap.set("n", "<C-space>", require("rust-tools").hover_actions.hover_actions, { buffer = bufnr })
+        -- Code action groups
+        vim.keymap.set("n", "<Leader>a", require("rust-tools").code_action_group.code_action_group,
+          { buffer = bufnr })
+      end,
+    },
+    {
+      "saecki/crates.nvim",
+      ft = { "rust", "toml" },
+      config = function(_, opts)
+        local crates = require("crates")
+        crates.setup(opts)
 
-      -- You can also add new plugins here as well:
-      -- Add plugins, the packer syntax without the "use"
-      -- { "andweeb/presence.nvim" },
-      -- {
-      --   "ray-x/lsp_signature.nvim",
-      --   event = "BufRead",
-      --   config = function()
-      --     require("lsp_signature").setup()
-      --   end,
-      -- },
+        -- add crates as a cmp source for cargo.toml files
+        vim.api.nvim_create_autocmd("bufread", {
+          group = vim.api.nvim_create_augroup("cmpsourcecargo", { clear = true }),
+          pattern = "cargo.toml",
+          callback = function()
+            require("cmp").setup.buffer({ sources = { { name = "crates" } } })
+          end,
+        })
 
-      -- We also support a key value style plugin definition similar to NvChad:
-      -- ["ray-x/lsp_signature.nvim"] = {
-      --   event = "BufRead",
-      --   config = function()
-      --     require("lsp_signature").setup()
-      --   end,
-      -- },
-    -- },
-    -- All other entries override the require("<key>").setup({...}) call for default plugins
-    -- ["null-ls"] = function(config) -- overrides `require("null-ls").setup(config)`
-      -- config variable is the default configuration table for the setup functino call
-      -- local null_ls = require "null-ls"
-
-      -- Check supported formatters and linters
-      -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
-      -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
-      -- config.sources = {
-        -- Set a formatter
-        -- null_ls.builtins.formatting.stylua,
-        -- null_ls.builtins.formatting.prettier,
-      -- }
-      -- set up null-ls's on_attach function
-      -- NOTE: You can uncomment this on attach function to enable format on save
-      -- config.on_attach = function(client)
-      --   if client.resolved_capabilities.document_formatting then
-      --     vim.api.nvim_create_autocmd("BufWritePre", {
-      --       desc = "Auto format before save",
-      --       pattern = "<buffer>",
-      --       callback = vim.lsp.buf.formatting_sync,
-      --     })
-      --   end
-      -- end
-      -- return config -- return final config table to use in require("null-ls").setup(config)
-    -- end,
-    -- treesitter = { -- overrides `require("treesitter").setup(...)`
-      -- ensure_installed = { "lua" },
-    -- },
-    -- use mason-lspconfig to configure LSP installations
-    -- ["mason-lspconfig"] = { -- overrides `require("mason-lspconfig").setup(...)`
-      -- ensure_installed = { "sumneko_lua" },
-    -- },
-    -- use mason-tool-installer to configure DAP/Formatters/Linter installation
-    -- ["mason-tool-installer"] = { -- overrides `require("mason-tool-installer").setup(...)`
-      -- ensure_installed = { "prettier", "stylua" },
-    -- },
-    -- packer = { -- overrides `require("packer").setup(...)`
-    --  compile_path = vim.fn.stdpath "data" .. "/packer_compiled.lua",
-    -- },
+        crates.show()
+      end,
+    },
   },
-
   -- LuaSnip Options
   luasnip = {
     -- Add paths for including more VS Code style snippets in luasnip
@@ -255,7 +241,6 @@ local config = {
       javascript = { "javascriptreact" },
     },
   },
-
   -- CMP Source Priorities
   -- modify here the priorities of default cmp sources
   -- higher value == higher priority
@@ -270,23 +255,6 @@ local config = {
       path = 250,
     },
   },
-
-  -- Modify which-key registration (Use this with mappings table in the above.)
-  ["which-key"] = {
-    -- Add bindings which show up as group name
-    register_mappings = {
-      -- first key is the mode, n == normal mode
-      n = {
-        -- second key is the prefix, <leader> prefixes
-        ["<leader>"] = {
-          -- third key is the key to bring up next level and its displayed
-          -- group name in which-key top level menu
-          ["b"] = { name = "Buffer" },
-        },
-      },
-    },
-  },
-
   -- This function is run last and is a good place to configuring
   -- augroups/autocommands and custom filetypes also this just pure lua so
   -- anything that doesn't fit in the normal config locations above can go here
@@ -300,13 +268,12 @@ local config = {
     --   pattern = "plugins.lua",
     --   command = "source <afile> | PackerSync",
     -- })
-
     -- Set up custom filetypes
     vim.filetype.add({
       extension = {
-        md = function (path, bufnr)
-          --return the filetype, and a function that sets variables 
-          return "markdown", function (bufnr)
+        md = function(path, bufnr)
+          --return the filetype, and a function that sets variables
+          return "markdown", function()
             --set variables
             vim.opt.wrap = true
           end
