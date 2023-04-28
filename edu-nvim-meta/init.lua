@@ -29,17 +29,34 @@ local config = {
     virtual_text = true,
     underline = true,
   },
+  -- configure color scheme
+  -- colorscheme = "catppuccin",
+  colorscheme = "astrotheme",
+  -- colorscheme = "pywal",
   -- Override highlight groups in any theme
   highlights = {
-    -- duskfox = { -- a table of overrides/changes to the default
-    --   Normal = { bg = "#000000" },
-    -- },
-    -- default_theme = function(highlights) -- or a function that returns a new table of colors to set
-    -- local C = require "default_theme.colors"
-
-    -- highlights.Normal = { fg = C.fg, bg = C.bg }
-    -- return highlights
-    -- end,
+    -- apply highlight group to all colorschemes (include the default_theme)
+    init = {
+      -- set the transparency for all of these highlight groups
+      -- Normal = { bg = "NONE", ctermbg = "NONE" },
+      -- NormalNC = { bg = "NONE", ctermbg = "NONE" },
+      -- FloatBorder = { bg = "NONE", ctermbg = "NONE" },
+      -- CursorColumn = { cterm = {}, ctermbg = "NONE", ctermfg = "NONE" },
+      -- CursorLine = { cterm = {}, ctermbg = "NONE", ctermfg = "NONE" },
+      -- CursorLineNr = { cterm = {}, ctermbg = "NONE", ctermfg = "NONE" },
+      -- LineNr = {},
+      -- SignColumn = {},
+      -- StatusLine = {},
+      -- NeoTreeNormal = { bg = "NONE", ctermbg = "NONE" },
+      -- NeoTreeNormalNC = { bg = "NONE", ctermbg = "NONE" },
+      -- Pmenu = { bg = "NONE", ctermbg = "NONE" },
+      -- WinBar = { bg = "NONE", ctermbg = "NONE" },
+      -- WinBarNC = { bg = "NONE", ctermbg = "NONE" },
+      -- TelescopeNormal = { bg = "NONE", ctermbg = "NONE" },
+      -- TelescopePreviewNormal = { bg = "NONE", ctermbg = "NONE" },
+      -- TelescopePromptNormal = { bg = "NONE", ctermbg = "NONE" },
+      -- TelescopeResultsNormal = { bg = "NONE", ctermbg = "NONE" },
+    },
   },
   -- Configure require("lazy").setup() options
   lazy = {
@@ -174,6 +191,7 @@ local config = {
   },
   -- Configure plugins
   plugins = {
+    -- rust support
     {
       "williamboman/mason-lspconfig.nvim",
       opts = {
@@ -203,7 +221,7 @@ local config = {
           },
         },
       },
-      config = function(_, opts)
+      config = function(_, opts, bufnr)
         require("rust-tools").setup(opts)
         -- Hover actions
         vim.keymap.set("n", "<C-space>", require("rust-tools").hover_actions.hover_actions, { buffer = bufnr })
@@ -230,6 +248,70 @@ local config = {
 
         crates.show()
       end,
+    },
+    -- color schemes
+    {
+      "catppuccin/nvim",
+      as = "catppuccin",
+      lazy = false,
+      config = function()
+        require("catppuccin").setup {}
+      end,
+    },
+    {
+      "AlphaTechnolog/pywal.nvim",
+      as = "pywal",
+      lazy = false,
+      config = function()
+        require("pywal").setup {}
+      end,
+    },
+    {
+      "AnthonyMichaelTDM/twilight.nvim",
+      -- "folke/twilight.nvim",
+      dependencies = "nvim-treesitter",
+      lazy = false,
+      config = function()
+        require("twilight").setup {
+          -- your configuration comes here
+          -- or leave it empty to use the default settings
+          -- refer to the configuration section below
+          dimming = {
+            inactive = true,
+          },
+          context = 0,
+          node_context = 2,
+          expand = {
+            "function",
+            "function_definition",
+            "function_declaration",
+            "method",
+            "method_definition",
+            "class",
+            "class_definition",
+            "table",
+          },
+          exclude = { "zsh", "markdown", "help", "asciidoc", "conf", "sh", "vim", "toml" },
+        }
+      end,
+    },
+    {
+      "xiyaowong/transparent.nvim",
+      lazy = false,
+      opts = {
+        groups = { -- table: default groups
+          'Normal', 'NormalNC', 'Comment', 'Constant', 'Special', 'Identifier',
+          'Statement', 'PreProc', 'Type', 'Underlined', 'Todo', 'String', 'Function',
+          'Conditional', 'Repeat', 'Operator', 'Structure', 'LineNr', 'NonText',
+          'SignColumn', 'CursorLineNr', 'CursorLine', 'EndOfBuffer', 'FloatBorder'
+        },
+        extra_groups = {
+          "NormalFloat",                         -- plugins which have float panel such as Lazy, Mason, LspInfo
+          "WinBar", "WinBarNC",                  -- scope bar
+          "NeoTreeNormal", "NeoTreeNormalNC",    -- NeoTree
+          "ShadeOverlay", "ShadeBrightnessPopup" -- Shade
+        },
+      }
     },
   },
   -- LuaSnip Options
