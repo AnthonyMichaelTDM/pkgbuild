@@ -191,6 +191,7 @@ local config = {
   },
   -- Configure plugins
   plugins = {
+    -- github copilot
     {
       "zbirenbaum/copilot.lua",
       cmd = "Copilot",
@@ -205,6 +206,29 @@ local config = {
           }
         })
       end,
+    },
+
+    -- wakatime integration
+    {
+      'wakatime/vim-wakatime',
+      lazy = false,
+    },
+
+    -- in-editor markdown preview
+    {
+      "iamcco/markdown-preview.nvim",
+      ft = "markdown",
+      build = "cd app && npm install && git reset --hard",
+      -- config = function()
+      --   vim.cmd(
+      --     [[
+      --     function OpenMarkdownPreview (url)
+      --       execute "silent ! firefox --new-window " . a:url
+      --     endfunction
+      --     ]]
+      --   )
+      --   vim.g.mkdp_browserfunc = "OpenMarkdownPreview"
+      -- end,
     },
 
     -- rust support
@@ -224,8 +248,8 @@ local config = {
     {
       "simrat39/rust-tools.nvim", -- add lsp plugin
       -- event = "BufEnter *.rs",
-      after = { "mason-lspconfig.nvim" },
-      dependencies = "neovim/nvim-lspconfig",
+      -- after = { "mason-lspconfig.nvim" },
+      dependencies = { "neovim/nvim-lspconfig", "mason-lspconfig.nvim" },
       ft = "rust",
       opts = {
         tools = {
@@ -268,7 +292,7 @@ local config = {
     -- color schemes
     {
       "catppuccin/nvim",
-      as = "catppuccin",
+      -- as = "catppuccin",
       lazy = false,
       config = function()
         require("catppuccin").setup {}
@@ -276,10 +300,10 @@ local config = {
     },
     {
       "AlphaTechnolog/pywal.nvim",
-      as = "pywal",
+      -- as = "pywal",
       lazy = false,
       config = function()
-        require("pywal").setup {}
+        require("pywal").setup()
       end,
     },
     {
@@ -378,6 +402,15 @@ local config = {
         end,
       },
     })
+
+    -- suppress some warnings
+    local notify = function(msg, ...)
+      if msg.match("warning: multiple different client offset_encodings") then
+        return
+      end
+      vim.notify(msg, ...)
+    end
+    vim.nofity = notify
     -- vim.filetype.add {
     --   extension = {
     --     foo = "fooscript",

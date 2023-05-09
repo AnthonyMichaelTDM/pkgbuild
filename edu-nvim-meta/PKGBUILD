@@ -1,6 +1,6 @@
 # Maintainer: Anthony Rubick <ruby.rubick@gmail.com>
 pkgname=edu-nvim-meta
-_astronvim_ver="3.10.3"
+_astronvim_ver="3.15.3"
 pkgver=VERSION
 pkgrel=1
 _licensedir="/usr/share/arcolinux/licenses/"
@@ -19,8 +19,8 @@ conflicts=()
 options=()
 source=(${pkgname}::"git+${_astronvimurl}" "astronvim.vim.template" "init.lua")
 sha256sums=('SKIP'
-            'a11c032b23e3892e9022aa32264cec022eddd25d39c874c36e70ed345ad05218'
-            '3fa750c669678022b0986e6054115f5e07b7d101ae18b992bdfdbcca68453391')
+            'd9a29673d420f4399628d8255991d8b93801e553e2ef0def2f9e3acf6aa31a5f'
+            'b4a4cf788341de20587e3fae07dad7edf396d135ba4aac99f926cb776c7c2292')
 install='readme.install'
 package() {
 	#set up astronvim configuration
