@@ -1,7 +1,7 @@
 #!/bin/bash
 #https://wiki.archlinux.org/index.php/DeveloperWiki:Building_in_a_Clean_Chroot
 
-destination1=$HOME"/Data/genesis-repo/x86_64/"
+destination1=$HOME"/Data/linux-stuff/genesis-repo/x86_64/"
 
 destiny=$destination1
 

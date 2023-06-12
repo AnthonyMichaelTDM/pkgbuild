@@ -116,6 +116,7 @@ local config = {
   lsp = {
     -- enable servers that you already have installed without mason
     servers = {
+      "pylsp",
       -- "pyright"
     },
     -- easily add or disable built in mappings added during LSP attaching
@@ -231,6 +232,36 @@ local config = {
       -- end,
     },
 
+    -- highlight TODO comments and such
+    {
+      "folke/todo-comments.nvim",
+      requires = "nvim-lua/plenary.nvim",
+      lazy = false,
+      config = function(_, opts)
+        require("todo-comments").setup(opts)
+      end,
+    },
+    {
+      "nvim-lua/plenary.nvim",
+    },
+
+    -- switch conda environments in nvim
+    {
+      "IllustratedMan-code/telescope-conda.nvim",
+      requires = "nvim-lua/plenary.nvim",
+      lazy = false,
+      config = function()
+        require("telescope").setup {
+          extensions = {
+            conda = {
+              anaconda_path = "~/.conda/",
+            }
+          }
+        }
+        require("telescope").load_extension("conda")
+      end,
+    },
+
     -- rust support
     {
       "williamboman/mason-lspconfig.nvim",
@@ -248,8 +279,8 @@ local config = {
     {
       "simrat39/rust-tools.nvim", -- add lsp plugin
       -- event = "BufEnter *.rs",
-      -- after = { "mason-lspconfig.nvim" },
-      dependencies = { "neovim/nvim-lspconfig", "mason-lspconfig.nvim" },
+      after = { "mason-lspconfig.nvim" },
+      dependencies = "neovim/nvim-lspconfig",
       ft = "rust",
       opts = {
         tools = {
@@ -280,7 +311,7 @@ local config = {
         -- add crates as a cmp source for cargo.toml files
         vim.api.nvim_create_autocmd("bufread", {
           group = vim.api.nvim_create_augroup("cmpsourcecargo", { clear = true }),
-          pattern = "cargo.toml",
+          pattern = "Cargo.toml",
           callback = function()
             require("cmp").setup.buffer({ sources = { { name = "crates" } } })
           end,

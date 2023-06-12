@@ -20,7 +20,7 @@ options=()
 source=(${pkgname}::"git+${_astronvimurl}" "astronvim.vim.template" "init.lua")
 sha256sums=('SKIP'
             'd9a29673d420f4399628d8255991d8b93801e553e2ef0def2f9e3acf6aa31a5f'
-            'b4a4cf788341de20587e3fae07dad7edf396d135ba4aac99f926cb776c7c2292')
+            '56f8759c7105c64b3a4e5ba9c62e7d546c6f2c79fc5c9a2ba28cc3ba08fb7c16')
 install='readme.install'
 package() {
 	#set up astronvim configuration
