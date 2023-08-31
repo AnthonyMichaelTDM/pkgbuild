@@ -11,7 +11,7 @@ pkgdesc="Collection of packages for neovim, neovim+neovide+astronvim"
 arch=('any')
 url="https://github.com/neovim/neovim"
 license=('GPL3')
-depends=('neovim>=0.8.0' 'xclip' 'lazygit' 'neovide')
+depends=('neovim>=0.8.0' 'xclip' 'lazygit' 'neovide' 'nerd-fonts-source-code-pro')
 makedepends=()
 replaces=()
 provides=("${pkgname}")
