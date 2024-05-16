@@ -21,6 +21,7 @@ depends=(
     'polybar'
     'nerd-fonts-source-code-pro'
     'edu-backgrounds-git'
+    'betterlockscreen'
 )
 optdepends=(
     'picom: compositor',
@@ -31,7 +32,6 @@ optdepends=(
     'xfce4-screenshooter: screenshot tool',
     'xfce4-notifyd: notification daemon',
     'xfce4-power-manager: power manager',
-    
 )
 makedepends=()
 replaces=()
