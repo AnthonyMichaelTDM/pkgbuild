@@ -19,7 +19,8 @@ sha256sums=('SKIP')
 package() {
     # install the software
     install -dm755 ${pkgdir}${_destname1}
-    cp -r  ${srcdir}/${_pkgname}/*.jpg ${pkgdir}${_destname1}
+    cp ${srcdir}/${_pkgname}/*.jpg ${pkgdir}${_destname1}
+    cp ${srcdir}/${_pkgname}/*.png ${pkgdir}${_destname1}
 }
 pkgver() {
     cd "$_pkgname"
