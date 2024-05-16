@@ -12,7 +12,27 @@ pkgdesc="Leftwm Desktop configuration for ArcoLinux -D -B"
 arch=('any')
 url="https://github.com/AnthonyMichaelTDM/${_pkgname}.git"
 license=('GPL3')
-depends=('bash' 'leftwm-git' 'leftwm-theme' 'python-pywal' 'picom' 'polybar' 'nerd-fonts-source-code-pro')
+depends=(
+    'bash'
+    'leftwm-git'
+    'leftwm-theme'
+    'python-pywal'
+    'sxhkd'
+    'polybar'
+    'nerd-fonts-source-code-pro'
+    'edu-backgrounds-git'
+)
+optdepends=(
+    'picom: compositor',
+    'compton: compositor',
+    'rofi: application launcher',
+    'flameshot: screenshot tool',
+    'xfce4-clipman-plugin: clipboard manager',
+    'xfce4-screenshooter: screenshot tool',
+    'xfce4-notifyd: notification daemon',
+    'xfce4-power-manager: power manager',
+    
+)
 makedepends=()
 replaces=()
 provides=("${pkgname}")

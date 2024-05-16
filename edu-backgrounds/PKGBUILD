@@ -1,0 +1,27 @@
+# Maintainer: Anthony Rubick <ruby.rubick@gmail.com>
+pkgname=edu-backgrounds-git
+_pkgname=edu-backgrounds
+pkgver=VERSION
+pkgrel=1
+_destname1="/usr/share/backgrounds/edu-backgrounds/"
+pkgdesc="Backgrounds for the Arco-Leftwm Desktop"
+arch=('any')
+url="https://github.com/AnthonyMichaelTDM/${_pkgname}.git"
+license=()
+depends=()
+makedepends=()
+replaces=()
+provides=("${pkgname}")
+conflicts=()
+options=(!strip !emptydirs)
+source=(${_pkgname}::"git+${url}")
+sha256sums=('SKIP')
+package() {
+    # install the software
+    install -dm755 ${pkgdir}${_destname1}
+    cp -r  ${srcdir}/${_pkgname}/* ${pkgdir}${_destname1}
+}
+pkgver() {
+    cd "$_pkgname"
+    printf "%s.r%s" "$(date +%y.%m)" "$(git rev-list --count HEAD)"
+}
