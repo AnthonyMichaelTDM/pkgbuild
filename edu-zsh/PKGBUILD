@@ -4,6 +4,7 @@ _pkgname=edu-zsh
 pkgver=VERSION
 pkgrel=1
 _srcname1="/etc/skel/.zshrc"
+_srcname2="/etc/skel/.zshrc-personal"
 _destname1="/etc/skel/"
 _licensedir="/usr/share/arcolinux/licenses/"
 pkgdesc="zsh configs"
@@ -27,6 +28,7 @@ package() {
     #install the software
     install -dm755 ${pkgdir}${_destname1}
     cp -r  ${srcdir}/${_pkgname}${_srcname1} ${pkgdir}${_destname1}
+    cp -r  ${srcdir}/${_pkgname}${_srcname2} ${pkgdir}${_destname1}
 }
 pkgver() {
     cd "$_pkgname"
