@@ -1,47 +1,34 @@
 # Maintainer: Anthony Rubick <ruby.rubick@gmail.com>
 pkgname=edu-nvim-meta
-_astronvim_ver="3.15.3"
 pkgver=VERSION
 pkgrel=1
-_licensedir="/usr/share/arcolinux/licenses/"
-_astronvimurl="https://github.com/AnthonyMichaelTDM/AstroNvim.git"
-_install_dest="/usr/share/astronvim/"
-_config_dest="/etc/skel/.config/astronvim/lua/user/"
+_pkgname="AstroNvim"
+_destname="/etc/skel/.config/"
 pkgdesc="Collection of packages for neovim, neovim+neovide+astronvim"
 arch=('any')
-url="https://github.com/neovim/neovim"
+url="https://github.com/AnthonyMichaelTDM/${_pkgname}.git"
 license=('GPL3')
-depends=('neovim>=0.8.0' 'xclip' 'lazygit' 'neovide' 'nerd-fonts-source-code-pro')
+depends=('neovim>=0.9.5' 'xclip' 'lazygit' 'neovide' 'nerd-fonts-source-code-pro')
+optdepends=(
+	'ripgrep: live grep telescope search'
+	'bottom: process viewer toggle terminal'
+	'python: python repl toggle terminal'
+	'nodejs: node repl toggle terminal'
+)
 makedepends=()
 replaces=()
 provides=("${pkgname}")
 conflicts=()
 options=()
-source=(${pkgname}::"git+${_astronvimurl}" "astronvim.vim.template" "init.lua")
-sha256sums=('SKIP'
-            'a11c032b23e3892e9022aa32264cec022eddd25d39c874c36e70ed345ad05218'
-            '56f8759c7105c64b3a4e5ba9c62e7d546c6f2c79fc5c9a2ba28cc3ba08fb7c16')
+source=(${_pkgname}::"git+${url}")
+sha256sums=('SKIP')
 install='readme.install'
 package() {
-	#set up astronvim configuration
-
-	cd "$srcdir"
-	echo -e "lua _G.astronvim_installation={home='${_install_dest}', version='${_astronvim_ver}', is_stable=true}\n$(cat astronvim.vim.template)" > astronvim.vim
-	install -Dm 644 "astronvim.vim" "${pkgdir}/usr/share/nvim/runtime/plugin/astronvim.vim"
-
-	#install license
-	cd "${pkgname}"
-	install -Dm 644 LICENSE "${pkgdir}${_licensedir}${pkgname}/AstroNvim/LICENSE"
-
-	#install (AstroNvim) sources
-	mkdir -p "${pkgdir}${_install_dest}"
-	cp -r {init.lua,lua} "${pkgdir}${_install_dest}"
-
-	#install (AstroNvim) user config
-	mkdir -p "${pkgdir}${_config_dest}"
-	cp "${srcdir}/init.lua" "${pkgdir}${_config_dest}"
+	#install (AstroNvim) config
+	install -dm755 "${pkgdir}${_destname}"
+	cp -r "${srcdir}/${_pkgname}/" "${pkgdir}${_destname}nvim"
 }
 pkgver() {
-    cd "$pkgname"
+    cd "$_pkgname"
     printf "%s.r%s" "$(date +%y.%m)" "$(git rev-list --count HEAD)"
 }
