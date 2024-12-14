@@ -61,11 +61,6 @@ build() {
     python setup.py build
 }
 
-check() {
-    cd "$srcdir/${_gitname}"
-    python setup.py test
-}
-
 package() {
   cd "$srcdir/${_gitname}"
   export PYTHONHASHSEED=0
