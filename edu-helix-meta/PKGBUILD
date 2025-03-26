@@ -11,6 +11,7 @@ license=('GPL3')
 depends=('helix' 'zellij')
 optdepends=(
 	'lazygit: git integration'
+	'yazi: file picker'
 )
 makedepends=()
 replaces=()
