@@ -3,15 +3,14 @@ pkgname=edu-zsh-git
 _pkgname=edu-zsh
 pkgver=VERSION
 pkgrel=1
-_srcname1="/etc/skel/.zshrc"
-_srcname2="/etc/skel/.zshrc-personal"
-_destname1="/etc/skel/"
+_srcname="/etc/skel/"
+_destname="/etc/skel/"
 _licensedir="/usr/share/arcolinux/licenses/"
 pkgdesc="zsh configs"
 arch=('any')
 url="https://github.com/AnthonyMichaelTDM/${_pkgname}.git"
 license=('GPL3')
-depends=('zsh' 'most')
+depends=('zsh' 'most' 'fzf' 'starship' 'oh-my-zsh-git')
 makedepends=('git')
 replaces=()
 provides=("${pkgname}")
@@ -26,9 +25,8 @@ package() {
     install -m644  ${srcdir}/${_pkgname}/LICENSE ${pkgdir}${_licensedir}${_pkgname}
 
     #install the software
-    install -dm755 ${pkgdir}${_destname1}
-    cp -r  ${srcdir}/${_pkgname}${_srcname1} ${pkgdir}${_destname1}
-    cp -r  ${srcdir}/${_pkgname}${_srcname2} ${pkgdir}${_destname1}
+    install -dm755 ${pkgdir}${_destname}
+    cp -r  ${srcdir}/${_pkgname}${_srcname} ${pkgdir}${_destname}
 }
 pkgver() {
     cd "$_pkgname"
