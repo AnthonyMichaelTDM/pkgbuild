@@ -3,7 +3,7 @@ pkgname=edu-zsh-git
 _pkgname=edu-zsh
 pkgver=VERSION
 pkgrel=1
-_srcname="/etc/skel/"
+_srcname="/etc/skel"
 _destname="/etc/skel/"
 _licensedir="/usr/share/arcolinux/licenses/"
 pkgdesc="zsh configs"
@@ -26,7 +26,10 @@ package() {
 
     #install the software
     install -dm755 ${pkgdir}${_destname}
-    cp -r  ${srcdir}/${_pkgname}${_srcname} ${pkgdir}${_destname}
+    cp -r  ${srcdir}/${_pkgname}${_srcname}/.zshrc ${pkgdir}${_destname}
+    cp -r  ${srcdir}/${_pkgname}${_srcname}/.zshrc-personal ${pkgdir}${_destname}
+    cp -r  ${srcdir}/${_pkgname}${_srcname}/.config ${pkgdir}${_destname}
+    
 }
 pkgver() {
     cd "$_pkgname"
