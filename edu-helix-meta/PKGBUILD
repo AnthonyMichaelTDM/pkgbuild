@@ -24,10 +24,10 @@ install='readme.install'
 package() {
 	# install (helix) config
 	install -dm755 "${pkgdir}${_destname}/helix"
-	cp -r "${srcdir}/${_pkgname}/helix" "${pkgdir}${_destname}/helix"
+	cp -r "${srcdir}/${_pkgname}/helix" "${pkgdir}${_destname}"
 	# install (zellij) config
 	install -dm755 "${pkgdir}${_destname}/zellij"
-	cp -r "${srcdir}/${_pkgname}/zellij" "${pkgdir}${_destname}/zellij"
+	cp -r "${srcdir}/${_pkgname}/zellij" "${pkgdir}${_destname}"
 }
 pkgver() {
     cd "$_pkgname"
