@@ -1,0 +1,27 @@
+# Maintainer: Anthony Rubick <ruby.rubick@gmail.com>
+pkgname=arcolinux-meta-steam
+pkgver=VERSION
+pkgrel=02
+pkgdesc="Installs steam on ArcoLinux"
+arch=('any')
+url="https://arcolinux.info"
+license=('MIT' 'GPL3')
+provides=("${pkgname}")
+replaces=('arcolinux-meta-steam-intel' 'arcolinux-meta-steam-nvidia' 'arcolinux-meta-steam-amd')
+conflicts=()
+options=(!strip !emptydirs)
+install='readme.install'
+optdepends=(
+'lsof'
+'proton-ge-custom-bin'
+'protonup-qt'
+'gamemode'
+'lib32-gamemode'
+)
+depends=(
+'steam'
+'ttf-ms-fonts'
+)
+pkgver() {
+    date +%y.%m
+}
