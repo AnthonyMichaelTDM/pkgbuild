@@ -16,14 +16,14 @@ options=(!strip !emptydirs)
 install='readme.install'
 conflicts=(arcolinux-logout-git arcolinux-logout-dev-git arcolinux-betterlockscreen-git arcolinux-betterlockscreen-dev-git archlinux-logout-dev-git)
 replaces=(archlinux-logout-themes-git arcolinux-logout-themes-git arcolinux-logout-git arcolinux-betterlockscreen-git)
-source=($_pkgname-${pkgver}-${pkgrel}::git+${url}.git)
+source=(${_pkgname}::git+${url}.git)
 sha256sums=('SKIP')
 package() {
 	install -dm755 ${pkgdir}${_licensedir}${_pkgname}
-	install -m644  ${srcdir}/${_pkgname}-${pkgver}-${pkgrel}/LICENSE ${pkgdir}${_licensedir}${_pkgname}
+	install -m644  ${srcdir}/${_pkgname}/LICENSE ${pkgdir}${_licensedir}${_pkgname}
 
-	cp -r ${srcdir}/${_pkgname}-${pkgver}-${pkgrel}/${_destname1} ${pkgdir}
-	cp -r ${srcdir}/${_pkgname}-${pkgver}-${pkgrel}/${_destname2} ${pkgdir}
+	cp -r ${srcdir}/${_pkgname}/${_destname1} ${pkgdir}
+	cp -r ${srcdir}/${_pkgname}/${_destname2} ${pkgdir}
 }
 pkgver() {
     cd "$_pkgname"

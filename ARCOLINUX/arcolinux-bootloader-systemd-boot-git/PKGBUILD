@@ -26,6 +26,6 @@ package() {
   cp -r ${srcdir}/${pkgname}/${_destname1}/* ${pkgdir}/${_destname1}
 }
 pkgver() {
-    cd "$_pkgname"
+    cd "$pkgname"
     printf "%s.r%s" "$(date +%y.%m)" "$(git rev-list --count HEAD)"
 }

@@ -58,13 +58,13 @@ prepare() {
 
 build() {
     cd "$srcdir/${_gitname}"
-    python setup.py build
+    python setup.py build > /dev/null || return 1
 }
 
 package() {
   cd "$srcdir/${_gitname}"
   export PYTHONHASHSEED=0
-  python setup.py install --prefix=/usr --root="$pkgdir/" --optimize=1 --skip-build
+  python setup.py install --prefix=/usr --root="$pkgdir/" --optimize=1 --skip-build > /dev/null || return 1
 
   install -Dm644 LICENSE.md -t "$pkgdir/usr/share/licenses/$pkgname"
 }
