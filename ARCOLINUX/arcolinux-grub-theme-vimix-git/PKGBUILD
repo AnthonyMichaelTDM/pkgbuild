@@ -1,0 +1,33 @@
+# Maintainer: Anthony Rubick <ruby.rubick@gmail.com>
+pkgname=arcolinux-grub-theme-vimix-git
+_pkgname=arcolinux-grub-theme-vimix
+destinationdir1="/usr/share/grub/themes/Vimix"
+destinationdir2="/boot/grub/themes/Vimix"
+_licensedir="/usr/share/arcolinux/licenses/"
+pkgver=VERSION
+pkgrel=04
+pkgdesc="ArcoLinux Vimix grub theme"
+arch=(any)
+url="https://github.com/AnthonyMichaelTDM/arcolinux-grub-theme-vimix"
+license=('GPL3')
+optdepends=('grub-customizer')
+makedepends=('git')
+depends=()
+install=readme.install
+conflicts=('grub2-theme-vimix-git' 'arcolinux-grub-theme-vimix-dev-git' 'grub-theme-vimix')
+provides=("${pkgname}")
+options=(!strip !emptydirs)
+source=(${_pkgname}::git+${url})
+md5sums=('SKIP')
+package() {
+	mkdir -p "${pkgdir}${_licensedir}${_pkgname}"
+	cp -r "${srcdir}/${_pkgname}/"LICENSE "${pkgdir}${_licensedir}${_pkgname}/LICENSE"
+	mkdir -p "${pkgdir}${destinationdir1}"
+	cp -r "${srcdir}/${_pkgname}/${destinationdir1}/"* "${pkgdir}${destinationdir1}"
+	mkdir -p "${pkgdir}${destinationdir2}"
+	cp -r "${srcdir}/${_pkgname}/${destinationdir2}/"* "${pkgdir}${destinationdir2}"
+}
+pkgver() {
+    cd "$_pkgname"
+    printf "%s.r%s" "$(date +%y.%m)" "$(git rev-list --count HEAD)"
+}
