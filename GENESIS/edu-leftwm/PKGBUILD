@@ -19,7 +19,7 @@ depends=(
     'python-pywal'
     'sxhkd'
     'polybar'
-    'nerd-fonts-source-code-pro'
+    'ttf-sourcecodepro-nerd'
     'edu-backgrounds-git'
     'betterlockscreen'
 )

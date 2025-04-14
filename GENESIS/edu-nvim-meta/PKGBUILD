@@ -1,14 +1,14 @@
 # Maintainer: Anthony Rubick <ruby.rubick@gmail.com>
 pkgname=edu-nvim-meta
 pkgver=VERSION
-pkgrel=1
+pkgrel=2
 _pkgname="AstroNvim"
 _destname="/etc/skel/.config/"
 pkgdesc="Collection of packages for neovim, neovim+neovide+astronvim"
 arch=('any')
 url="https://github.com/AnthonyMichaelTDM/${_pkgname}.git"
 license=('GPL3')
-depends=('neovim>=0.9.5' 'xclip' 'lazygit' 'neovide' 'nerd-fonts-source-code-pro')
+depends=('neovim>=0.9.5' 'xclip' 'lazygit' 'neovide' 'ttf-sourcecodepro-nerd')
 optdepends=(
 	'ripgrep: live grep telescope search'
 	'bottom: process viewer toggle terminal'
