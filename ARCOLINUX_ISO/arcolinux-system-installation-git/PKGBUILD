@@ -1,0 +1,38 @@
+# Maintainer: Erik Dubois <erik.dubois@gmail.com>
+pkgname=arcolinux-system-installation-git
+_pkgname=arcolinux-system-installation
+_destname1="/etc/"
+_destname2="/usr/local/bin/"
+_destname3="/usr/lib/systemd/system/"
+_licensedir="/usr/share/arcolinux/licenses/"
+pkgver=VERSION
+pkgrel=01
+pkgdesc="Installation files for ArcoLinux"
+arch=('any')
+url="https://github.com/AnthonyMichaelTDM/arcolinux-system-installation"
+license=('GPL3')
+makedepends=('git')
+depends=()
+conflicts=("arcolinux-system-installation-dev-git")
+provides=("${pkgname}")
+options=(!strip !emptydirs)
+source=(${pkgname}::"git+https://github.com/AnthonyMichaelTDM/${_pkgname}")
+sha256sums=('SKIP')
+install="readme.install"
+package() {
+  install -dm755 "$pkgdir/$_licensedir/$_pkgname"
+  install -m644 "$srcdir/$pkgname/LICENSE" "$pkgdir/$_licensedir/$_pkgname"
+
+  install -dm755 "$pkgdir$_destname1"
+  cp -r "$srcdir/$pkgname/$_destname1/"* "$pkgdir/$_destname1"
+
+  install -dm755 "$pkgdir$_destname2"
+  cp -r "$srcdir/$pkgname/$_destname2/"* "$pkgdir/$_destname2"
+
+  install -dm755 "$pkgdir$_destname3"
+  cp -r "$srcdir/$pkgname/$_destname3/"* "$pkgdir/$_destname3"
+}
+pkgver() {
+    cd "$pkgname"
+    printf "%s.r%s" "$(date +%y.%m)" "$(git rev-list --count HEAD)"
+}
