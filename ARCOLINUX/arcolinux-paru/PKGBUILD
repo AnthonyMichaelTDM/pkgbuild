@@ -1,23 +1,16 @@
 # Maintainer: Anthony Rubick <ruby.rubick@gmail.com>
-pkgname=arcolinux-gtk-sardi-arc-git
-_pkgname=arcolinux-gtk-sardi-arc
-_destname1="/etc/skel/.config/"
+pkgname=arcolinux-paru-git
+_pkgname=arcolinux-paru
+_destname1="/etc/skel/.config/paru/"
 _licensedir="/usr/share/arcolinux/licenses/"
 pkgver=VERSION
-pkgrel=05
-pkgdesc="Gtk config for ArcoLinux"
+pkgrel=01
+pkgdesc="paru config for arcolinux"
 arch=('any')
-url="https://github.com/AnthonyMichaelTDM/arcolinux-gtk-sardi-arc"
+url="https://github.com/AnthonyMichaelTDM/arcolinux-paru"
 license=('GPL3')
 makedepends=('git')
-depends=('bash')
-replaces=('arcolinux-gtk3-sardi-arc-git')
-conflicts=(
-'arcolinux-gtk-arcolinux-candy-beauty-git'
-'arcolinux-gtk-surfn-arc-breeze-git'
-'arcolinux-gtk-surfn-arc-git'
-'arcolinux-gtk-surfn-plasma-dark-git'
-)
+depends=()
 provides=("${pkgname}")
 options=(!strip !emptydirs)
 source=(${_pkgname}::"git+https://github.com/AnthonyMichaelTDM/${_pkgname}.git")
@@ -28,7 +21,7 @@ package() {
 	install -m644  ${srcdir}/${_pkgname}/LICENSE ${pkgdir}${_licensedir}${_pkgname}
 
 	install -dm755 ${pkgdir}${_destname1}
-	cp -r  ${srcdir}/${_pkgname}${_destname1}* ${pkgdir}${_destname1}
+	install -m644  ${srcdir}/${_pkgname}${_destname1}* ${pkgdir}${_destname1}
 }
 pkgver() {
     cd "$_pkgname"

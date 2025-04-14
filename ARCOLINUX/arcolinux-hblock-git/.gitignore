@@ -1,0 +1,2 @@
+# ignore any sources that get downloaded when updating checksums
+*.tar.gz

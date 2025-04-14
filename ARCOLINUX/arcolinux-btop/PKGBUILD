@@ -1,16 +1,17 @@
 # Maintainer: Anthony Rubick <ruby.rubick@gmail.com>
-pkgname=arcolinux-rofi-git
-_pkgname=arcolinux-rofi
-_destname1="/etc/skel/.config/rofi/"
+pkgname=arcolinux-btop-git
+_pkgname=arcolinux-btop
+_destname1="/etc/skel/.config/btop/"
 _licensedir="/usr/share/arcolinux/licenses/"
 pkgver=VERSION
 pkgrel=02
-pkgdesc="rofi config for ArcoLinux"
+pkgdesc="btop theme from ArcoLinux"
 arch=('any')
-url="https://github.com/AnthonyMichaelTDM/arcolinux-rofi"
+url="https://github.com/AnthonyMichaelTDM/arcolinux-btop"
 license=('GPL3')
 makedepends=('git')
 depends=()
+conflicts=()
 provides=("${pkgname}")
 options=(!strip !emptydirs)
 source=(${_pkgname}::"git+https://github.com/AnthonyMichaelTDM/${_pkgname}.git")

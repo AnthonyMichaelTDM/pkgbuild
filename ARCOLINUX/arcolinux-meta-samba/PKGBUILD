@@ -16,7 +16,7 @@ optdepends=('nemo-share: Sharing a folder via Nemo'
 			'system-config-samba: The Samba configuration tool by Red Hat')
 install=readme.install
 source=('smb.conf.arcolinux')
-md5sums=('2149b06f8cf24113791c8a8efee21d9a')
+md5sums=('b4017dc89c132103ce6f1c45f857f07f')
 package() {
         install -Dm644 smb.conf.arcolinux $pkgdir/etc/samba/smb.conf
         mkdir -p $pkgdir/var/lib/samba/usershares

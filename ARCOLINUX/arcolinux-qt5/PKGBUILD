@@ -1,13 +1,13 @@
 # Maintainer: Anthony Rubick <ruby.rubick@gmail.com>
-pkgname=arcolinux-paru-git
-_pkgname=arcolinux-paru
-_destname1="/etc/skel/.config/paru/"
+pkgname=arcolinux-qt5-git
+_pkgname=arcolinux-qt5
+_destname1="/etc/skel/.config/qt5ct/"
 _licensedir="/usr/share/arcolinux/licenses/"
 pkgver=VERSION
 pkgrel=01
-pkgdesc="paru config for arcolinux"
+pkgdesc="configuration files for ArcoLinux"
 arch=('any')
-url="https://github.com/AnthonyMichaelTDM/arcolinux-paru"
+url="https://github.com/AnthonyMichaelTDM/arcolinux-qt5"
 license=('GPL3')
 makedepends=('git')
 depends=()
@@ -21,7 +21,7 @@ package() {
 	install -m644  ${srcdir}/${_pkgname}/LICENSE ${pkgdir}${_licensedir}${_pkgname}
 
 	install -dm755 ${pkgdir}${_destname1}
-	install -m644  ${srcdir}/${_pkgname}${_destname1}* ${pkgdir}${_destname1}
+	cp -r  ${srcdir}/${_pkgname}${_destname1}* ${pkgdir}${_destname1}
 }
 pkgver() {
     cd "$_pkgname"

@@ -2,7 +2,7 @@
 #change prepare number too
 
 pkgname=arco-calamares-git
-_pkgname=calamares
+_pkgname=arco-calamares
 # change number in prepare as well
 pkgver=VERSION
 pkgrel=01
@@ -59,7 +59,7 @@ backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/initcpio.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 
-source=("calamares::git+https://github.com/AnthonyMichaelTDM/${_pkgname}"
+source=("${_pkgname}::git+https://github.com/AnthonyMichaelTDM/${_pkgname}"
 	"cal-arcolinux.desktop"
 	"cal-arcolinux-debugging.desktop"
 	"calamares_polkit")
