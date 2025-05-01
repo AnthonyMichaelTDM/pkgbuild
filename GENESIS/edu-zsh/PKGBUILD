@@ -11,6 +11,7 @@ arch=('any')
 url="https://github.com/AnthonyMichaelTDM/${_pkgname}.git"
 license=('GPL3')
 depends=('zsh' 'most' 'fzf' 'starship' 'oh-my-zsh-git')
+optdepends=('neovim: nvim as a pager')
 makedepends=('git')
 replaces=()
 provides=("${pkgname}")
