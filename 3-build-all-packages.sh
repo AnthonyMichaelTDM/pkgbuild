@@ -10,6 +10,10 @@
 #   DO NOT JUST RUN THIS. EXAMINE AND JUDGE. RUN AT YOUR OWN RISK.
 #
 ##################################################################################################################
+
+# try to update the repo, and exit early if that fails
+git pull || exit 1
+
 echo "#############################################################################################"
 echo
 echo "This builds all the existing icons"
