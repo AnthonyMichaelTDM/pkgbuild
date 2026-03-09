@@ -2,7 +2,7 @@
 #change prepare number too
 
 pkgname=arco-calamares-git
-_pkgname=arco-calamares
+_pkgname=calamares
 # change number in prepare as well
 pkgver=VERSION
 pkgrel=01

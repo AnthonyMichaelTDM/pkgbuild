@@ -18,7 +18,8 @@ for collection in $(ls -d */ | cut -f1 -d'/'); do
 		echo
 		cd $name
 		updpkgsums ./PKGBUILD
-		rm -rf $name
+		# remove any newly added files or directories (e.g., a git repo cloned in the PKGBUILD's prepare function)
+		git clean -fdx
 		echo "#############################################################################################"
 		echo "################  "$(basename `pwd`)" done"
 		echo "#############################################################################################"
