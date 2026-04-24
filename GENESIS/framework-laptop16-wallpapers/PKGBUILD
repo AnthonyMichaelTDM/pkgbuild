@@ -1,0 +1,24 @@
+# Maintainer: Anthony Rubick <ruby.rubick@gmail.com>
+pkgname=framework-laptop16-wallpapers
+pkgver=1.0.0
+pkgrel=1
+_destname="/usr/share/backgrounds/framework-laptop16-wallpaper-pack/"
+pkgdesc=""
+arch=('any')
+url="https://frame.work/laptop16?tab=overview"
+license=()
+depends=()
+optdepends=()
+makedepends=('unzip')
+replaces=()
+provides=("${pkgname}")
+conflicts=()
+options=(!strip !emptydirs)
+source=("framework-laptop16-wallpaper-pack.zip")
+sha256sums=('1a19d30c48d569cbaaa032cc83d32472ee7e2480e49aec772a8dbd005a522001')
+package() {
+    # install the software
+    install -dm755 ${pkgdir}${_destname}
+    unzip -o ${srcdir}/framework-laptop16-wallpaper-pack.zip -d ${pkgdir}${_destname}
+    mv ${pkgdir}${_destname}/*/* ${pkgdir}${_destname}
+}
